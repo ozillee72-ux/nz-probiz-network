@@ -1,34 +1,22 @@
 <!DOCTYPE html>
-<html lang="ms">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NZ PROBIZ NETWORK</title>
-  <link rel="manifest" href="./manifest.json">
-  <link rel="icon" href="./icon-192.png">
-  <link rel="apple-touch-icon" href="./icon-192.png">
-  <meta name="theme-color" content="#111111">
-  <style>
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Arial,sans-serif;background:#fff}
-    iframe{width:100%;height:100dvh;border:0;display:block}
-    .fallback{padding:16px;text-align:center}
-  </style>
-</head>
-<body>
- <div style="text-align:center;padding:40px 20px">
-  <img src="./nz-logo.png" alt="NZ PROBIZ NETWORK"
-       style="width:150px;max-width:80%">
-  <h2>NZ PROBIZ NETWORK</h2>
-  <a href="https://script.google.com/macros/s/AKfycbyEipLfQlEpBCR4Nc-rDguR7yqDZbOiLjTFrM_v_Oc02bP7_e7yXOKlzVVugDmrX58r9Q/exec"
-     style="display:inline-block;padding:15px 25px;background:#7229df;color:white;border-radius:10px;text-decoration:none;font-weight:bold">
-    BUKA PUBLIC VIEW
-  </a>
-</div>
-  <noscript>
-    <div class="fallback">
-      Sila aktifkan JavaScript untuk menggunakan aplikasi.
-    </div>
-  </noscript>
-</body>
-</html>
+<html lang="ms"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NZ PROBIZ NETWORK</title><link rel="manifest" href="./manifest.json"><link rel="icon" href="./icon-192.png"><link rel="apple-touch-icon" href="./icon-192.png"><meta name="theme-color" content="#5420ae">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2f5fc;color:#10254b;font:14px Arial,sans-serif}.wrap{max-width:1160px;margin:auto;padding:12px}.head{background:linear-gradient(110deg,#5420ae,#a847f4);color:#fff;border-radius:13px;padding:18px;margin-bottom:15px}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand h1{margin:5px 0;font-size:23px}.brand small{letter-spacing:1px;font-weight:bold}.brand p{margin:0}.login{display:inline-block;background:#fff;color:#5420ae;border-radius:9px;text-decoration:none;font-weight:bold;padding:12px;white-space:nowrap}.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:6px;background:#e7edfa;border-radius:12px;margin:15px 0}.tabs button,.action{border:0;background:linear-gradient(110deg,#7229df,#a447f2);color:#fff;font-weight:700;border-radius:8px;padding:12px;cursor:pointer}.tabs button[aria-pressed=false]{background:transparent;color:#26385a}.title{margin:18px 0}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{background:#fff;border:1px solid #dce4f1;border-radius:15px;overflow:hidden}.poster{position:relative;height:205px;background:#e8eaf2}.poster img{width:100%;height:100%;object-fit:cover}.poster .empty{height:100%;display:grid;place-items:center;color:#71819a}.arrow{position:absolute;top:44%;background:#7e2de2;color:white;border:0;border-radius:50%;width:32px;height:32px;cursor:pointer}.prev{left:8px}.next{right:8px}.content{padding:16px}.content h3{font-size:16px;margin:0 0 12px}.meta{color:#64769b;font-size:13px;margin:10px 0}.action{display:block;width:100%;text-align:center;text-decoration:none;margin-top:16px}.action.disabled{background:#84b29d;cursor:default}.note{margin-top:12px;color:#667797}.error{color:#a12443}.emptyList{padding:30px;text-align:center;color:#687895;background:white;border-radius:12px;grid-column:1/-1}@media(max-width:850px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.head{padding:15px}.brand{align-items:flex-start}.brand h1{font-size:18px}.login{font-size:11px;padding:10px 7px}.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.tabs button{font-size:12px;padding:11px 5px}.cards{grid-template-columns:1fr}.poster{height:215px}}
+</style></head><body><main class="wrap"><header class="head"><div class="brand"><div><small>EVENT MANAGEMENT SYSTEM</small><h1>NZ PROBIZ NETWORK</h1><p>Senarai Event & Pendaftaran Peniaga</p></div><a class="login" href="https://script.google.com/macros/s/AKfycbxoGCih41LGJ2pGukBWE_8j7DA61YUmOS0tfHObmVGMANegsefqDtvZ8O6wAEWzC9b0/exec">LOGIN PENIAGA</a></div></header>
+<nav class="tabs"><button data-status="upcoming" aria-pressed="true">📅 Akan Datang</button><button data-status="ongoing" aria-pressed="false">🟢 Berlangsung</button><button data-status="planning" aria-pressed="false">📝 Perancangan</button><button data-status="archive" aria-pressed="false">📁 Arkib</button></nav><h2 class="title" id="heading">Akan Datang</h2><div id="cards" class="cards"><div class="emptyList">Memuatkan event...</div></div><p class="note" id="notice"></p></main>
+<script>
+'use strict';
+const PUBLIC_URL='https://script.google.com/macros/s/AKfycbyEipLfQlEpBCR4Nc-rDguR7yqDZbOiLjTFrM_v_Oc02bP7_e7yXOKlzVVugDmrX58r9Q/exec';
+let events=[],active='upcoming';const labels={upcoming:'Akan Datang',ongoing:'Sedang Berlangsung',planning:'Dalam Perancangan',archive:'Arkib'};
+function node(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
+function render(){document.getElementById('heading').textContent=labels[active];document.querySelectorAll('[data-status]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.status===active)));const root=document.getElementById('cards');root.replaceChildren();const list=events.filter(e=>e.status===active);if(!list.length){root.append(node('div','emptyList','Tiada event dalam kategori ini.'));return;}list.forEach(e=>{const card=node('article','card'),photo=node('div','poster');let index=0;const pics=e.images||[];function show(){photo.replaceChildren();if(!pics.length){photo.append(node('div','empty','Poster event'));return;}const img=node('img');img.src=pics[index];img.alt='Poster '+e.name;img.loading='lazy';photo.append(img);if(pics.length>1){[['‹','prev',-1],['›','next',1]].forEach(([t,c,d])=>{const b=node('button','arrow '+c,t);b.type='button';b.setAttribute('aria-label',d<0?'Poster sebelumnya':'Poster seterusnya');b.onclick=()=>{index=(index+d+pics.length)%pics.length;show()};photo.append(b);});}}show();card.append(photo);const content=node('div','content');content.append(node('h3','',e.name));content.append(node('div','meta','📍 '+e.venue));content.append(node('div','meta','🗓️ '+e.startDate+' — '+e.endDate));content.append(node('div','meta','Pendaftaran: '+(e.registrationOpen?'YA':'TIDAK')));if(e.description)content.append(node('p','meta',e.description));if(e.registrationOpen&&e.registrationUrl){const a=node('a','action','DAFTAR NIAGA');a.href=e.registrationUrl;a.target='_blank';a.rel='noopener noreferrer';content.append(a);}else{content.append(node('div','action disabled',e.registrationOpen?'PAUTAN PENDAFTARAN BELUM DISET':'PENDAFTARAN DITUTUP'));}card.append(content);root.append(card);});}
+document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{active=b.dataset.status;render()});
+// JSONP permits the public read-only GAS endpoint to be called from GitHub Pages.
+const callback='nzPublicEvents'+Date.now();const script=document.createElement('script');let finished=false;
+const timeout=setTimeout(()=>fail('Sambungan data mengambil masa terlalu lama.'),20000);
+function fail(message){if(finished)return;finished=true;clearTimeout(timeout);delete window[callback];document.getElementById('cards').replaceChildren(node('div','emptyList error','Gagal membaca event: '+message));}
+window[callback]=data=>{if(finished)return;finished=true;clearTimeout(timeout);delete window[callback];if(!data||!data.ok){document.getElementById('cards').replaceChildren(node('div','emptyList error','Gagal membaca event: '+(data&&data.error||'Ralat tidak diketahui')));return;}events=Array.isArray(data.events)?data.events:[];render();};
+script.onerror=()=>fail('Tidak dapat mencapai PUBLIC VIEW. Semak deployment akses Anyone.');
+script.src=PUBLIC_URL+'?action=publicEvents&callback='+callback;document.head.append(script);
+</script></body></html>
